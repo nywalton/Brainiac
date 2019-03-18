@@ -4,3 +4,7 @@ src/Brainiac/obj/
 test/Brainiac.Test/obj/
 tools/
 *.trx
+src/Brainiac/bin/
+test/Brainiac.Test/bin/Debug/netcoreapp2.1/appsettings.json
+test/Brainiac.Test/bin/
+*.sln
