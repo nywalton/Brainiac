@@ -1,0 +1,6 @@
+*.user
+.vs/
+src/Brainiac/obj/
+test/Brainiac.Test/obj/
+tools/
+*.trx
