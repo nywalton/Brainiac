@@ -61,7 +61,6 @@ Task("GenSln")
 });
 
 Task("BuildSln")
-    .IsDependentOn("GenSln")
     .Does(() => 
 {
     Information("Generating Cake project...");
@@ -78,6 +77,7 @@ Task("BuildSln")
 });
 
 Task("Build")
+    .IsDependentOn("Restore")
     .Does(() => 
 {
     Information("Building project...");

@@ -51,7 +51,7 @@ namespace Brainiac
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("0.0.1", new Info { Title = "Oracle API", Version = "0.0.1" });
+                c.SwaggerDoc("0.0.1", new Info { Title = "Brainiac API", Version = "0.0.1" });
             });
 
             services.AddLogging(builder =>
