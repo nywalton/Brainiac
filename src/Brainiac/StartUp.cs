@@ -61,19 +61,6 @@ namespace Brainiac
                 builder.AddDebug();
                 builder.AddProvider(new NLogLoggerProvider());
             });
-
-            // Allow CORS
-            services.AddCors(
-                options => options.AddPolicy("AllowCors",
-                    builder =>
-                    {
-                        builder //.WithOrigins("http://localhost:500") //AllowMultipleOrigins;
-                        .AllowAnyOrigin()
-                        .AllowAnyOrigin() //AllowAllOrigins;
-                        .AllowAnyMethod()
-                        .AllowAnyHeader(); //AllowAllHeaders;
-                    })
-            );
         }
 
         /// <summary>
@@ -87,13 +74,10 @@ namespace Brainiac
             app.UseMiddleware<HttpExceptionMiddleware>();
             app.UseMvc();
 
-            //Enable CORS policy "AllowCors"
-            app.UseCors("AllowCors");
-
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/0.0.1/swagger.json", "Oracle API 0.0.1");
+                c.SwaggerEndpoint("/swagger/0.0.1/swagger.json", "Brainiac API 0.0.1");
             });
 
             app.Run(async (context) => await Task.Run(() => context.Response.Redirect("/swagger")));        }

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using Brainiac.Contract;
@@ -10,7 +9,6 @@ namespace Brainiac.Controllers
     /// <summary>
     /// A controller that exposes the API endpoints for the Person class.
     /// </summary>
-    [EnableCors("AllowCors")]
     public class PersonController : Controller
     {
         private static readonly ILogger _log = LogWrapper.Instance.GetLogger<PersonController>();
