@@ -5,12 +5,12 @@ namespace Brainiac.Entity
     /// <summary>
     /// A simple Person class.
     /// </summary>
-    public class Person : IDataItem<int>
+    public class Person : IDataItem 
     {
         /// <summary>
         /// The Id of the person
         /// </summary>
-        public int Id { get; set; }
+        public object Id { get; set; }
 
         /// <summary>
         /// First name

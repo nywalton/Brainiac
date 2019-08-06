@@ -12,13 +12,13 @@ namespace Brainiac.Controllers
     [ServiceFilter(typeof(AuthenticationFilterAttribute))]
     public class SecurePersonController
     {
-        private readonly IRepository<Person, int> _repository;
+        private readonly IRepository<Person> _repository;
 
         /// <summary>
         /// Constructor that initialize the correcty type of IRepository
         /// </summary>
         /// <param name="personRepository"></param>
-        public SecurePersonController(IRepository<Person, int> personRepository)
+        public SecurePersonController(IRepository<Person> personRepository)
         {
             _repository = personRepository;
         }

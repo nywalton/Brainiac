@@ -43,11 +43,14 @@ namespace Brainiac
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.Configure<AppConfig>(Configuration);
             services.AddScoped<AuthenticationFilterAttribute>();
 
-            // todo Add an attribute to allow the type of IRepository to be set by config/cmd line
-            services.AddSingleton<IRepository<Person, int>, FileSystemRepository<Person, int>>();
+            // todo Add an attribute to allow the type of IRepository and config type to be set by config
+
+            //services.Configure<FileRepoConfig>(Configuration);
+            //services.AddSingleton<IRepository<Person, int>, FileSystemRepository<Person, int>>();
+            services.Configure<ElasticSearchRepoConfig>(Configuration);
+            services.AddSingleton<IRepository<Person>, ElasticSearchRepository<Person>>();
 
             services.AddSwaggerGen(c =>
             {

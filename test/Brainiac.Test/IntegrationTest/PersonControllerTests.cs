@@ -74,7 +74,7 @@ namespace Brainiac.Test.IntegrationTest
             Assert.That(result.Contains("saved", StringComparison.InvariantCultureIgnoreCase));
 
             // Remove the test person from the repo
-            HttpResponseMessage deleteResponse = await _client.GetAsync("person/remove");
+            HttpResponseMessage deleteResponse = await _client.GetAsync("person/remove/0");
             deleteResponse.EnsureSuccessStatusCode();
             string deleteResult = await deleteResponse.Content.ReadAsStringAsync();
             Assert.That(deleteResult.Contains("removed", StringComparison.InvariantCultureIgnoreCase));
@@ -112,7 +112,7 @@ namespace Brainiac.Test.IntegrationTest
             Assert.AreEqual("maxwell", retrievedPersons[0].LastName);
 
             // Remove the test person from the repo
-            HttpResponseMessage deleteResponse = await _client.GetAsync("person/remove");
+            HttpResponseMessage deleteResponse = await _client.GetAsync("person/removeAll");
             deleteResponse.EnsureSuccessStatusCode();
             string deleteResult = await deleteResponse.Content.ReadAsStringAsync();
             Assert.That(deleteResult.Contains("removed", StringComparison.InvariantCultureIgnoreCase));
@@ -152,7 +152,7 @@ namespace Brainiac.Test.IntegrationTest
             Assert.AreEqual("maxwell", retrievedPersons[0].LastName);
 
             // Remove the test person from the repo
-            HttpResponseMessage deleteResponse = await _client.GetAsync("person/remove");
+            HttpResponseMessage deleteResponse = await _client.GetAsync("person/remove/1");
             deleteResponse.EnsureSuccessStatusCode();
             string deleteResult = await deleteResponse.Content.ReadAsStringAsync();
             Assert.That(deleteResult.Contains("removed", StringComparison.InvariantCultureIgnoreCase));
@@ -185,7 +185,7 @@ namespace Brainiac.Test.IntegrationTest
             Assert.AreEqual(HttpStatusCode.Unauthorized, getResponse.StatusCode);
             
             // Remove the test person from the repo
-            HttpResponseMessage deleteResponse = await _client.GetAsync("person/remove");
+            HttpResponseMessage deleteResponse = await _client.GetAsync("person/removeAll");
             deleteResponse.EnsureSuccessStatusCode();
             string deleteResult = await deleteResponse.Content.ReadAsStringAsync();
             Assert.That(deleteResult.Contains("removed", StringComparison.InvariantCultureIgnoreCase));

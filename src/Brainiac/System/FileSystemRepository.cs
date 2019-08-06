@@ -7,13 +7,15 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Brainiac.Contract;
+using Brainiac.Entity;
 
 namespace Brainiac.System
 {
-    public class FileSystemRepository<T, TId> : IRepository<T, TId> where T : IDataItem<TId>
+    public class FileSystemRepository<T> : IRepository<T> 
+        where T : class, IDataItem
     {
-        private static readonly ILogger _log = LogWrapper.Instance.GetLogger<FileSystemRepository<T, TId>>();
-        private readonly AppConfig _config;
+        private static readonly ILogger _log = LogWrapper.Instance.GetLogger<FileSystemRepository<T>>();
+        private readonly FileRepoConfig _config;
 
         private readonly string _filePath;
 
@@ -21,7 +23,7 @@ namespace Brainiac.System
         /// A FileSystemRepo that will set up the local database file from the appsettings.
         /// </summary>
         /// <param name="options"></param>
-        public FileSystemRepository(IOptions<AppConfig> options)
+        public FileSystemRepository(IOptions<FileRepoConfig> options)
         {
             _config = options.Value;
             if (string.IsNullOrWhiteSpace(_config.LocalRepoBaseFileName)) throw new ArgumentException("Using a local file system repository requires a localRepoBaseFileName in the appsettings.");
@@ -60,19 +62,20 @@ namespace Brainiac.System
         /// </summary>
         /// <param name="id">The Id to search the internal repo for.</param>
         /// <returns>An element that matches the specified Id.</returns>
-        public T GetById(TId id)
+        public T GetById(object id)
         {
             List<T> data = Load();
             return data.SingleOrDefault(element => element.Id.Equals(id));
         }
 
         /// <summary>
-        /// Remove the last item from the repo.
+        /// Remove the item with the given Id
         /// </summary>
-        public void Remove()
+        public void Remove(object id)
         {
             List<T> data = Load();
-            data.RemoveAt(data.Count - 1);
+            T itemToRemove = GetById(id);
+            data.Remove(itemToRemove);
             Save(data);
         }
 

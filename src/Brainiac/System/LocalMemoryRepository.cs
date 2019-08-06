@@ -9,9 +9,10 @@ namespace Brainiac.System
     /// </summary>
     /// <typeparam name="T">Type stored in the repository.</typeparam>
     /// <typeparam name="TId">Type of the unique identifier for the type stored in the repo.</typeparam>
-    public class LocalMemoryRepository<T, TId> : IRepository<T, TId> where T : IDataItem<TId>
+    public class LocalMemoryRepository<T> : IRepository<T> 
+        where T : class, IDataItem
     {
-        private static Dictionary<TId, T> _data = new Dictionary<TId, T>();
+        private static Dictionary<object, T> _data = new Dictionary<object, T>();
 
         /// <summary>
         /// Returns the total number of items in the repo.
@@ -36,19 +37,19 @@ namespace Brainiac.System
         /// </summary>
         /// <param name="id">The Id to search the internal repo for.</param>
         /// <returns>An element that matches the specified Id.</returns>
-        public T GetById(TId id)
+        public T GetById(object id)
         {
             return _data[id];
         }
 
         /// <summary>
-        /// Remove the last item from the repo.
+        /// Remove the item with the given Id from the repo.
         /// </summary>
-        public void Remove()
+        public void Remove(object id)
         {
-            if(_data.Keys.Any())
+            if (_data.ContainsKey(id))
             {
-                _data.Remove(_data.Keys.Last());
+                _data.Remove(id);
             }
         }
 

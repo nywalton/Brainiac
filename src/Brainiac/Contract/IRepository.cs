@@ -2,14 +2,14 @@
 
 namespace Brainiac.Contract
 {
-    public interface IRepository<T, TId> where T : IDataItem<TId>
+    public interface IRepository<T> where T : class
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        T GetById(TId id);
+        T GetById(object id);
 
         /// <summary>
         /// 
@@ -26,7 +26,7 @@ namespace Brainiac.Contract
         /// <summary>
         /// 
         /// </summary>
-        void Remove();
+        void Remove(object id);
 
         /// <summary>
         /// 

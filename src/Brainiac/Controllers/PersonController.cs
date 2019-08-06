@@ -13,15 +13,24 @@ namespace Brainiac.Controllers
     {
         private static readonly ILogger _log = LogWrapper.Instance.GetLogger<PersonController>();
 
-        private readonly IRepository<Person, int> _repository;
+        private readonly IRepository<Person> _repository;
 
         /// <summary>
-        /// Constructor that initialize the correcty type of IRepository
+        /// Constructor that initialize the correct type of IRepository
         /// </summary>
         /// <param name="personRepository"></param>
-        public PersonController(IRepository<Person, int> personRepository)
+        public PersonController(IRepository<Person> personRepository)
         {
             _repository = personRepository;
+        }
+
+        /// <summary>
+        /// Retrieve the number of persons in persistent storage.
+        /// </summary>The number of persons in persistent storage.</returns>
+        [HttpGet("person/count")]
+        public string GetPersonCount()
+        {
+            return _repository.Count().ToString();
         }
 
         /// <summary>
@@ -30,7 +39,7 @@ namespace Brainiac.Controllers
         /// <param name="id">The Id of the person to retrieve.</param>
         /// <returns>The Person with the matching Id, or null if there is no person with the specified Id.</returns>
         [HttpGet("person/get/{id}")]
-        public Person GetPerson(int id)
+        public Person GetPerson(object id)
         {
             return _repository.GetById(id);
         }
@@ -39,10 +48,10 @@ namespace Brainiac.Controllers
         /// Remove a person from persistent storage.
         /// </summary>
         /// <returns></returns>
-        [HttpGet("person/remove")]
-        public string RemovePerson()
+        [HttpGet("person/remove/{id}")]
+        public string RemovePerson(object id)
         {
-            _repository.Remove();
+            _repository.Remove(id);
             return $"Last person removed. Total count: {_repository.Count()}";
         }
 
@@ -52,11 +61,10 @@ namespace Brainiac.Controllers
         [HttpGet("person/removeAll")]
         public string RemoveAllPersons()
         {
-            _repository.Remove();
+            _repository.RemoveAll();
             return $"All persons removed. Total count: {_repository.Count()}";
         }
-
-
+        
         /// <summary>
         /// Retrieve all persons from persistent storage.
         /// </summary>

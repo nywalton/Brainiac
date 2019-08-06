@@ -3,8 +3,8 @@
     /// <summary>
     /// A data item.
     /// </summary>
-    public interface IDataItem<T> 
+    public interface IDataItem
     {
-        T Id { get; set; }
+        object Id { get; set; }
     }
 }
